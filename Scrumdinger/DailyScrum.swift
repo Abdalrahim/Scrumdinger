@@ -33,3 +33,18 @@ extension DailyScrum {
         ]
     }
 }
+
+let colors = [Color(#colorLiteral(red: 0.1607843137, green: 0.6117647059, blue: 0.6588235294, alpha: 1)), Color(#colorLiteral(red: 0.4078431373, green: 0.8392156863, blue: 0.5764705882, alpha: 1)), Color(#colorLiteral(red: 0.937254902, green: 0.4470588235, blue: 0.3803921569, alpha: 1)), Color(#colorLiteral(red: 0.537254902, green: 0.2117647059, blue: 0.3764705882, alpha: 1)), Color(#colorLiteral(red: 0.6274509804, green: 0.8431372549, blue: 0.8862745098, alpha: 1))]
+
+extension DailyScrum {
+    struct Data {
+        var title: String = ""
+        var attendees: [String] = []
+        var lengthInMinutes: Double = 5.0
+        var color: Color = colors.randomElement()!
+    }
+
+    var data: Data {
+        return Data(title: title, attendees: attendees, lengthInMinutes: Double(lengthInMinutes), color: color)
+    }
+}
