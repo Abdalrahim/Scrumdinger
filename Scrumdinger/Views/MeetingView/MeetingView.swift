@@ -17,12 +17,8 @@ struct MeetingView: View {
             RoundedRectangle(cornerRadius: 16.0)
                 .fill(scrum.color)
             VStack {
-                MeetingHeaderView
-                (
-                    secondsElapsed: $scrumTimer.secondsElapsed,
-                    secondsRemaining: $scrumTimer.secondsRemaining,
-                    scrumColor: scrum.color
-                )
+                MeetingHeaderView(secondsElapsed: $scrumTimer.secondsElapsed, secondsRemaining: $scrumTimer.secondsRemaining, scrumColor: scrum.color)
+                
                 
                 Circle()
                     .strokeBorder(lineWidth: 24, antialiased: true)
@@ -42,6 +38,8 @@ struct MeetingView: View {
         }
         .onDisappear {
             scrumTimer.stopScrum()
+            let newHistory = History(attendees: scrum.attendees, lengthInMinutes: scrumTimer.secondsElapsed / 60)
+            scrum.history.insert(newHistory, at: 0)
         }
     }
 }

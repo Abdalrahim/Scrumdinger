@@ -75,6 +75,7 @@ class ScrumTimer: ObservableObject {
     }
 
     private func update(secondsElapsed: Int) {
+        print("timer updated \(secondsElapsed)")
         secondsElapsedForSpeaker = secondsElapsed
         self.secondsElapsed = secondsPerSpeaker * speakerIndex + secondsElapsedForSpeaker
         guard secondsElapsed <= secondsPerSpeaker else {
