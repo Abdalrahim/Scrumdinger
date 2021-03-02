@@ -2,7 +2,7 @@
 //  MeetingFooterView.swift
 //  Scrumdinger
 //
-//  Created by Esar Tech  on 26/12/2020.
+//  Created by Abdalrahim Al Ayubi  on 26/12/2020.
 //
 
 import SwiftUI
@@ -21,6 +21,9 @@ struct MeetingFooterView: View {
         guard let speakerNumber = speakerNumber else { return "No more speakers" }
         return "Speaker \(speakerNumber) of \(speakers.count)"
     }
+    
+    let scrumColor: Color
+    
     var body: some View {
         VStack {
             HStack {
@@ -34,7 +37,7 @@ struct MeetingFooterView: View {
                     }
                     .accessibilityLabel(Text("Next speaker"))
                 }
-            }
+            }.foregroundColor(scrumColor.accessibleFontColor)
         }
         .padding([.bottom, .horizontal])
     }
@@ -47,7 +50,7 @@ struct MeetingFooterView_Previews: PreviewProvider {
     ]
     
     static var previews: some View {
-        MeetingFooterView(speakers: .constant(speakers), skipAction: {})
+        MeetingFooterView(speakers: .constant(speakers), skipAction: {}, scrumColor: .blue)
             .previewLayout(.sizeThatFits)
     }
 }

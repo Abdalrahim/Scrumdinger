@@ -2,7 +2,7 @@
 //  DetailView.swift
 //  Scrumdinger
 //
-//  Created by Esar Tech  on 15/12/2020.
+//  Created by Abdalrahim Al Ayubi  on 15/12/2020.
 //
 
 import SwiftUI
@@ -16,11 +16,11 @@ struct DetailView: View {
             Section(header: Text("Meeting Info")) {
                 NavigationLink(
                     destination: MeetingView(scrum: $scrum)) {
-                        Label("Start Meeting", systemImage: "timer")
-                            .font(.headline)
-                            .foregroundColor(.accentColor)
-                            .accessibilityLabel(Text("start meeting"))
-                    }
+                    Label("Start Meeting", systemImage: "timer")
+                        .font(.headline)
+                        .foregroundColor(.accentColor)
+                        .accessibilityLabel(Text("start meeting"))
+                }
                 HStack {
                     Label("Length", systemImage: "clock")
                         .accessibilityLabel(Text("meeting length"))
@@ -47,9 +47,12 @@ struct DetailView: View {
                     Label("No meetings yet", systemImage: "calendar.badge.exclamationmark")
                 }
                 ForEach(scrum.history) { history in
-                    HStack {
-                        Image(systemName: "calendar")
-                        Text(history.date, style: .date)
+                    NavigationLink(
+                        destination: HistoryView(history: history)) {
+                        HStack {
+                            Image(systemName: "calendar")
+                            Text(history.date, style: .date)
+                        }
                     }
                 }
             }

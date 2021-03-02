@@ -2,7 +2,7 @@
 //  MeetingHeaderView.swift
 //  Scrumdinger
 //
-//  Created by Esar Tech  on 23/12/2020.
+//  Created by Abdalrahim Al Ayubi  on 23/12/2020.
 //
 
 import SwiftUI
@@ -49,6 +49,7 @@ struct MeetingHeaderView: View {
                 .accessibilityElement(children: .ignore)
                 .accessibilityLabel(Text("Time remaining"))
                 .accessibilityValue(Text("\(minutesRemaining) \(minutesRemainingMetric)"))
+                .foregroundColor(scrumColor)
                 .padding([.top, .horizontal])
             }
     }

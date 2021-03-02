@@ -2,7 +2,7 @@
 //  ScrumData.swift
 //  Scrumdinger
 //
-//  Created by Esar Tech  on 22/02/2021.
+//  Created by Abdalrahim Al Ayubi  on 22/02/2021.
 //
 
 import Foundation

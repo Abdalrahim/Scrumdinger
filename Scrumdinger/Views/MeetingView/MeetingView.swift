@@ -2,27 +2,31 @@
 //  MeetingView.swift
 //  Scrumdinger
 //
-//  Created by Esar Tech  on 15/12/2020.
+//  Created by Abdalrahim Al Ayubi  on 15/12/2020.
 //
 
 import SwiftUI
 import AVFoundation
 
 struct MeetingView: View {
+    
     @Binding var scrum: DailyScrum
     @StateObject var scrumTimer = ScrumTimer()
+    
+    private let speechRecognizer = SpeechRecognizer()
+    @State private var transcript = ""
+    @State private var isRecording = false
+    
     var player: AVPlayer { AVPlayer.sharedDingPlayer }
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 16.0)
                 .fill(scrum.color)
             VStack {
-                MeetingHeaderView(secondsElapsed: $scrumTimer.secondsElapsed, secondsRemaining: $scrumTimer.secondsRemaining, scrumColor: scrum.color)
+                MeetingHeaderView(secondsElapsed: $scrumTimer.secondsElapsed, secondsRemaining: $scrumTimer.secondsRemaining, scrumColor: scrum.color.accessibleFontColor)
                 
-                
-                Circle()
-                    .strokeBorder(lineWidth: 24, antialiased: true)
-                MeetingFooterView(speakers: $scrumTimer.speakers, skipAction: scrumTimer.skipSpeaker)
+                MeetingTimerView(isRecording: isRecording ,speakers: scrumTimer.speakers, scrumColor: scrum.color)
+                MeetingFooterView(speakers: $scrumTimer.speakers, skipAction: scrumTimer.skipSpeaker, scrumColor: scrum.color)
             }
             .padding()
             //.foregroundColor(scrum.color)
@@ -34,11 +38,15 @@ struct MeetingView: View {
                 player.seek(to: .zero)
                 player.play()
             }
+            speechRecognizer.record(to: $transcript)
+            isRecording = true
             scrumTimer.startScrum()
         }
         .onDisappear {
             scrumTimer.stopScrum()
-            let newHistory = History(attendees: scrum.attendees, lengthInMinutes: scrumTimer.secondsElapsed / 60)
+            speechRecognizer.stopRecording()
+            isRecording = false
+            let newHistory = History(attendees: scrum.attendees, lengthInMinutes: scrumTimer.secondsElapsed / 60, transcript: transcript)
             scrum.history.insert(newHistory, at: 0)
         }
     }

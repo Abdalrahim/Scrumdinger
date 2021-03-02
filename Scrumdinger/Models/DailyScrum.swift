@@ -2,7 +2,7 @@
 //  DailyScrum.swift
 //  Scrumdinger
 //
-//  Created by Esar Tech  on 15/12/2020.
+//  Created by Abdalrahim Al Ayubi  on 15/12/2020.
 //
 
 import SwiftUI
