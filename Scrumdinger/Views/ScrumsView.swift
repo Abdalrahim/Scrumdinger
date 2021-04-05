@@ -12,6 +12,7 @@ struct ScrumsView: View {
     @Environment(\.scenePhase) private var scenePhase
     @State private var isPresented = false
     @State private var newScrumData = DailyScrum.Data()
+    @State private var degrees : Double = 0
     let saveAction: () -> Void
     var body: some View {
         List {
@@ -24,9 +25,14 @@ struct ScrumsView: View {
         }
         .navigationTitle("Daily Scrums")
         .navigationBarItems(trailing: Button(action: {
-            isPresented = true
+            withAnimation {
+                isPresented.toggle()
+                degrees += 90
+            }
         }) {
             Image(systemName: "plus")
+                .rotationEffect(.init(degrees: degrees), anchor: .center)
+                .animation(.easeIn)
         })
         .sheet(isPresented: $isPresented) {
             NavigationView {
